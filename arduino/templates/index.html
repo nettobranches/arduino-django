@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Arduino</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		
+	</head>
+	<body>
+
+		<div id="wrapper" class="container">
+			<h1> Control </h1>
+			<p> control de arduino 1 </p>
+
+			<a href="http://localhost:8000/arduino/test/read"> http://localhost:8000/arduino/test/read </a>
+			<a href="http://localhost:8000/api/subjects/"> http://localhost:8000/api/subjects/ </a>
+			<a href="http://localhost:8000/api/subjects/?format=json" > http://localhost:8000/api/subjects/?format=json </a>
+
+			<arduino-uno></arduino-uno>
+
+		</div>
+
+		<template id="arduino-uno">
+			<div>
+				<div>
+					template arduino uno
+					<input v-model="port"></input>
+					<button v-on:click="init()" type="button" class="btn btn-primary"> Iniciar</button>
+				</div>
+				<div>
+				 	<select v-model="tipo" name="s_tipo">
+						<option value="a">Analog</option>
+						<option value="d">Digital</option>
+					</select>
+					<input v-model="idx" type="number" name="points" min="0" max="13" step="1" value="2">
+					<select v-model="mode" name="s_tipo">
+						<option value="i">Input</option>
+						<option value="o">Output</option>
+						<option value="p">Pwd</option>
+					</select>
+					<button v-on:click="startPin()" type="button" class="btn btn-primary"> Set pin</button>
+				</div>
+				<div>
+					<ul id="example-1">
+						<li v-for="pin in analogPins">
+							<span> Analog {{ pin.idx}} {{pin.mode }}</span>
+							<button v-on:click="get(pin)" type="button" class="btn btn-primary"> Obtener valor</button>
+							<button v-on:click="start_monitor()" type="button" class="btn btn-primary "> Iniciar monitor </button>
+							<button v-on:click="stop_monitor()" type="button" class="btn btn-primary "> Detener monitor </button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</template> <!-- /template -->
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<!-- development version, includes helpful console warnings -->
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="{% static "components/arduino.component.js" %}" ></script>
+		<script src="{% static "app.js" %}" ></script>
+	</body>
+</html> 

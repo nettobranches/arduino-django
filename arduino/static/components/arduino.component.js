@@ -53,7 +53,7 @@ Vue.component('arduino-uno',{
 
             axios.get('/arduino/start_digital/'+this.idx+'/'+this.mode)
             .then(function (response) {
-                this.digitalPins.push({tipo:"d", idx: _this.idx, mode: _this.mode})
+                _this.digitalPins.push({tipo:"d", idx: _this.idx, mode: _this.mode})
             // handle success
             console.log(response);
             })
@@ -78,6 +78,18 @@ Vue.component('arduino-uno',{
             console.log(error);
             })
         } // get
+        ,get_d: function(pin){
+            var _this = this;
+            axios.get('/arduino/get_digital_val/'+pin.idx)
+            .then(function (response) {
+            // handle success
+            console.log(response);
+            })
+            .catch(function (error) {
+            // handle error
+            console.log(error);
+            })
+        } // get
         ,start_monitor: function(){
             var _this = this;
             this.timer = setInterval(function(){
@@ -90,5 +102,29 @@ Vue.component('arduino-uno',{
             clearTimeout(this.timer);
             
         } // stop_monitor
+        ,start_servo: function(){
+            var _this = this;
+            axios.get('/arduino/start_servo/')
+            .then(function (response) {
+            // handle success
+            console.log(response);
+            })
+            .catch(function (error) {
+            // handle error
+            console.log(error);
+            })
+        }
+        ,move_servo: function(deg){
+            var _this = this;
+            axios.get('/arduino/move_servo/'+deg)
+            .then(function (response) {
+            // handle success
+            console.log(response);
+            })
+            .catch(function (error) {
+            // handle error
+            console.log(error);
+            })
+        }
     } // methods
 }); // component cliente

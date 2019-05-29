@@ -53,6 +53,22 @@
 						</li>
 					</ul>
 				</div>
+				<div>
+					<ul id="example-1">
+						<li v-for="pin in digitalPins">
+							<span> Digital {{ pin}} {{pin.mode }}</span>
+							<button v-on:click="get_d(pin)" type="button" class="btn btn-primary"> Obtener valor</button>
+							<button v-on:click="start_monitor()" type="button" class="btn btn-primary "> Iniciar monitor </button>
+							<button v-on:click="stop_monitor()" type="button" class="btn btn-primary "> Detener monitor </button>
+						</li>
+					</ul>
+				</div>
+				<div>
+					<button v-on:click="start_servo()">start servo</button>
+					<button v-on:click="move_servo(0)">0</button>
+					<button v-on:click="move_servo(45)">45</button>
+					<button v-on:click="move_servo(90)">90</button>
+				</div>
 			</div>
 		</template> <!-- /template -->
 

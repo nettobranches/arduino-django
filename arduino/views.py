@@ -34,9 +34,21 @@ def startAnalogPin(request, idx, mode):
 	return HttpResponse(res)
 
 def startDigitalPin(request, idx, mode):
-	res = arduino.startAnalogPin(idx, mode)
+	res = arduino.startDigitalPin(idx, mode)
 	return HttpResponse(res)
 
 def getAnalogVal(request, idx):
 	res = arduino.getAnalogPin(idx)
 	return HttpResponse(res)
+
+def getDigitalVal(request, idx):
+	res = arduino.getDigitalPin(idx)
+	return HttpResponse(res)
+
+def moveServo(request, deg):
+	arduino.moveServo(deg) #grados
+	return HttpResponse('move')
+
+def startServo(request):
+	arduino.startServo(2)
+	return HttpResponse('start')

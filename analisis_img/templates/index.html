@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Arduino</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		
+	</head>
+	<body>
+
+		<div id="wrapper" class="container">
+			<h1> Analisis de imagenes </h1>
+			<image-cmp></image-cmp>
+			
+			
+		</div>
+		<template id="image-cmp">
+			<div>
+				template
+				<div class="large-12 medium-12 small-12 cell">
+				<label>Files
+				<input type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
+				</label>
+				</div>
+				<div class="large-12 medium-12 small-12 cell">
+				<div v-for="(file, key) in files" class="file-listing">{{ file.name }} <span class="remove-file" v-on:click="removeFile( key )">Remove</span></div>
+				</div>
+				<br>
+				<div class="large-12 medium-12 small-12 cell">
+					<button v-on:click="addFiles()">Add Files</button>
+				</div>
+				<br>
+				<div class="large-12 medium-12 small-12 cell">
+					<button v-on:click="submitFiles()">Submit</button>
+				</div>
+			</div>
+		</template>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<!-- development version, includes helpful console warnings -->
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="{% static "components/image.component.js" %}" ></script>
+		<script src="{% static "app.js" %}" ></script>
+	</body>
+</html> 

@@ -19,5 +19,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('arduino/', include('arduino.urls')),
+    path('analisis_img/', include('analisis_img.urls')),
     path('api/', include('arduino.api.urls', namespace='api')),
 ]

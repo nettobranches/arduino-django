@@ -45,10 +45,29 @@ def getDigitalVal(request, idx):
 	res = arduino.getDigitalPin(idx)
 	return HttpResponse(res)
 
+def setDigitalVal(request, idx, val):
+	res = arduino.setDigitalPin(idx, val)
+	return HttpResponse(res)
+
 def moveServo(request, deg):
 	arduino.moveServo(deg) #grados
 	return HttpResponse('move')
 
 def startServo(request):
 	arduino.startServo(2)
+	return HttpResponse('start')
+
+def semaforo(request):
+	port = "COM3"
+	global arduino
+	arduino = ArduinoController()
+	arduino.setPort(port)
+	arduino.startDigitalPin('8', 'o')
+	arduino.startDigitalPin('9', 'o')
+	arduino.startDigitalPin('10', 'o')
+
+	return render(request, 'semaforo.html')
+
+def start_semaforo(request, r, y, g):
+
 	return HttpResponse('start')

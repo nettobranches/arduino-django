@@ -68,10 +68,19 @@ class ArduinoController(object):
 			print('pin '+str(idx)+" value "+str(value))
 		return value
 
+	def setDigitalPin(self, idx, val):
+		
+		if( True ):
+			self.digitalPins[str(idx)].write(val)
+			print('set pin '+str(idx)+" value "+str(val))
+
+
 	def getData(self, tipo='a', idx='2'):
 		return str(self.analog2input.read())
 
 	def setData(self, tipo, idx, value):
 		pin= self.board.get_pin( tipo+':'+idx+':'+operation )
 		return pin.write()
+
+	
 		

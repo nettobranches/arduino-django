@@ -128,3 +128,58 @@ Vue.component('arduino-uno',{
         }
     } // methods
 }); // component cliente
+
+Vue.component('control-semaforo',{
+    template:"#control-semaforo",
+    data:function(){
+        return {
+            verde:100,
+            ambar:200,
+            rojo:300
+
+        }},
+    methods:{
+        start_lights: function(){
+            _this = this
+            _this.setPinOn('8',_this.verde,function(){
+                _this.setPinOn('9',_this.ambar, function(){
+                    _this.setPinOn('10',_this.rojo,function(){
+                        _this.start_lights()
+                    });
+                });
+            });
+            
+            
+
+        }
+        ,setPinOn: function(idx, time, callback){
+            _this = this;
+            axios.get('/arduino/set_digital_val/'+idx+'/1')
+            .then(function (response) {
+                // handle success
+                console.log(response);
+                setTimeout(function(){
+                    _this.setPinOff(idx)
+                    callback()
+                }, time);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+        } // setPinOn
+        ,setPinOff: function(idx){
+            axios.get('/arduino/set_digital_val/'+idx+'/0')
+            .then(function (response) {
+                // handle success
+                console.log(response);
+                
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+        } // setPinOn
+        
+    } // methods
+}); // component cliente

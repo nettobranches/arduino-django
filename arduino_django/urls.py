@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from . import views
 
 urlpatterns = [
+    
     path('admin/', admin.site.urls),
     path('arduino/', include('arduino.urls')),
     path('analisis_img/', include('analisis_img.urls')),
     path('api/', include('arduino.api.urls', namespace='api')),
+    path('', views.index, name='index'),
 ]

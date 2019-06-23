@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Analisis de imagenes</title>
+		<title>Analisis de imagen</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -12,14 +12,32 @@
 	<body>
 
 		<div id="wrapper" class="container">
-			<h1> Analisis de imagenes </h1>
+			<h1> Analisis de imagen </h1>
+			<singlefile></singlefile>
 			<image-cmp></image-cmp>
+
+
+			 <form method="post" action="/analisis_img/upload" enctype="multipart/form-data">
+			 	{% csrf_token %}
+			  Select a file: <input type="file" name="myFile">
+			  <input type="submit" value="Submit">
+			</form> 
 			
 			
 		</div>
+		<template id="singlefile">
+		<div class="container">
+		<div class="large-12 medium-12 small-12 cell">
+		<label>File
+		<input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+		</label>
+		<button v-on:click="submitFile('{{ csrf_token }}')">Submit</button>
+		</div>
+		</div>
+		</template>
 		<template id="image-cmp">
 			<div>
-				template
+				template 
 				<div class="large-12 medium-12 small-12 cell">
 				<label>Files
 				<input type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
@@ -34,7 +52,7 @@
 				</div>
 				<br>
 				<div class="large-12 medium-12 small-12 cell">
-					<button v-on:click="submitFiles()">Submit</button>
+					<button v-on:click="submitFiles('{{ csrf_token }}')">Submit</button>
 				</div>
 			</div>
 		</template>

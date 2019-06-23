@@ -42,7 +42,7 @@ class ArduinoController(object):
 
 	def startServo(self, idx):
 
-		self.board.servo_config(idx, 500, 1200, self.deg)
+		self.board.servo_config(idx, 500, 2400, self.deg) #sg 90
 		self.servo = self.board.digital[2]
 		self.servo.mode = pyfirmata.SERVO
 		

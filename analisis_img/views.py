@@ -9,7 +9,7 @@ savePath = "arduino/static/"
 
 def index(request):
 	#dosomething()
-	return render(request, 'analisis_imagen.html')
+	return render(request, 'analisis_imagen_post.html')
 
 def _upload(request):
     if request.method == 'POST':
@@ -20,7 +20,7 @@ def _upload(request):
             
     return HttpResponse("home")
 
-def upload(request):
+def upload_single(request): #upload single file
     print(request.FILES)
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
@@ -38,7 +38,7 @@ def upload(request):
     return render(request, 'analisis_imagen_resultados.html', {"colorObj": colorObj, "lstObjs": lstObjs, "fileName": fname})
 
 def handle_uploaded_file(f):
-    print('f',f)
+    # print('f',f)
     with open(savePath+f.name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)

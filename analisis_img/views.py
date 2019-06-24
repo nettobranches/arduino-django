@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .controllers.imageController import color_filter
+
+from .controllers.imageController import color_filter, size_filter
 from .forms import UploadFileForm
 # Create your views here.
+
+savePath = "arduino/static/"
+
 def index(request):
 	#dosomething()
 	return render(request, 'analisis_imagen.html')
@@ -22,16 +26,20 @@ def upload(request):
         form = UploadFileForm(request.POST, request.FILES)
         print('valid', form.is_valid())
         #if form.is_valid():
-        fname = handle_uploaded_file(request.FILES['myFile'])
-        color_filter(fname)
+        myFile = request.FILES['myFile']
+        fname = handle_uploaded_file(myFile)
+        colorObj = color_filter(savePath+fname)
+        print('colorObj', colorObj)
+        lstObjs = size_filter(savePath+fname)
+        print("lstObjs", lstObjs)
     #else:
      #   form = UploadFileForm()
     #return render(request, 'upload.html', {'form': form})
-    return render(request, 'analisis_imagen_resultados.html')
+    return render(request, 'analisis_imagen_resultados.html', {"colorObj": colorObj, "lstObjs": lstObjs, "fileName": fname})
 
 def handle_uploaded_file(f):
     print('f',f)
-    with open(f.name, 'wb+') as destination:
+    with open(savePath+f.name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
 
